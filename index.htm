@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="formVal.js"></script>
+    <script src="init.js"></script>
+    <script src="gameScript.js"></script>
+    
+</head>
+<header>
+    <div id="header1">
+        <img src="pacman-logo.png" width="40%" /></div>
+        <p>Ido Marko(209510890) & Itay Merhav(205503352)</p>
+    
+</header>
+
+<body>
+    
+    
+    <div id="menu">
+        <ul>
+            <li><a href="#welcome" id="welcomeLabel">Welcome</a></li>
+            <li><a href="#register" id="registerLabel">Register</a></li>
+            <li><a href="#login" id="loginLabel">Login</a></li>
+            <li><a href="#about" id="aboutLabel" onclick="showModal()">About</a></li>
+        </ul>
+    </div>
+
+    <div id="content">
+
+        <div align="center" id="welcomeDiv">
+            <h1> <font size="10" color="white"> Welcome!</font></h1>
+            <button class="btn" id="regBtn">Register</button>
+            <button class="btn" id="loginBtn">Login</button>
+        </div>
+
+        <div align="center" id="registerDiv" hidden>
+            <h1> <font size="10" color="white"> Register</font></h1>
+            <form>
+                <div class="container">
+                    <p>Please fill in this form to create an account.</p>
+                    <hr>
+                    <input id="form_username" type="text" placeholder="Enter Username" name="username" required>
+                    <input id="form_pass" type="password" placeholder="Enter Password" name="psw" required>
+                    <input id="form_repPass" type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                    <input id="form_firstName" type="text" placeholder="Enter First Name" name="firstname" required>
+                    <input id="form_lastName" type="text" placeholder="Enter Last name" name="lastname" required>
+                    <input id="form_email" type="email" placeholder="Enter Email" name="email" required>
+                    <input id="form_date" type="date" placeholder="Enter Birthdate" name="birthdate" required>
+
+                    <hr>
+
+                    <button onclick="validate()" type="button" class="btn">Register</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div align="center" id="loginDiv" hidden>
+            <h1> <font size="10" color="white"> Login</font></h1>
+            <form>
+                <div class="container">
+                    <p>Please fill in this form to login.</p>
+                    <hr>
+                    <input id="login_username" type="text" placeholder="Enter Username" name="username" required>
+                    <input id="login_pass" type="password" placeholder="Enter Password" name="psw" required>
+                    <hr>
+
+                    <button onclick="login()" type="button" class="btn">Log in</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="settingsDiv" hidden>
+            <h1> <font size="10" color="white"> Settings</font></h1>
+            <form>
+                <div class="container">
+                    <p>Please fill in this form to login.</p>
+                    <hr>
+                    <h2>Keyboard Settings:</h2>
+                    <input id="upButton" type="text" maxlength="1" placeholder="Move Up Button (leave empty for deafult arrow)">
+                    <input id="downButton" type="text" maxlength="1" placeholder="Move Down Button (leave empty for deafult arrow)">
+                    <input id="leftButton" type="text" maxlength="1" placeholder="Move Left Button (leave empty for deafult arrow)">
+                    <input id="rightButton" type="text" maxlength="1" placeholder="Move Right Button (leave empty for deafult arrow)">
+                    <h2>Pac-Dots Settings:</h2>
+                    <input id="pacdot_num_settings" min="50" max="90" type="number" placeholder="Number of Pac-Dots (min:50 max:90)" required>
+                    <p>5 points Pac-Dots :</p>
+                    <input type="color" id="5color" value="#0000ff" />
+                    <p>15 points Pac-Dots :</p>
+                    <input type="color" id="15color" value="#00ff00" />
+                    <p>25 points Pac-Dots :</p>
+                    <input type="color" id="25color" value="#ff0000" />
+                    <h2>Time Settings:</h2>
+                    <input id="timeSetting" type="number" min="60" placeholder="Time of Game in Seconds (min:60 seconds)" required>
+                    <h2>Monsters Settings:</h2>
+                    <input id="monsterSetting" type="number" min=1 max=3 placeholder="Number of monsters (min:1 max:3)" required>
+                    <br />
+                    <button type="button" onclick="randomSettings()">Random Settings</button>
+
+                    <hr>
+                    <div align="center">
+                        <button onclick="startGame()" type="button" class="btn">Start Game</button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+        <div id="gameDiv" hidden>
+            <audio id="soundtrack" src="music_pacman.mp3"></audio>
+            <image id="sandTime" src="timer1.png" width="7px" heigth="7px" hidden></image>
+            <div id="element1">
+                <p id="player_name" style="color:aqua">Name: </p>
+            </div>
+
+            <div id="element2">
+                <p style="color:aqua">Score:</p>
+                <input id="lblScore" />
+                <br />
+
+            </div>
+
+            <div id="element3">
+                <p style="color:aqua">TIME:</p>
+                <input id="lblTime" />
+            </div>
+
+            <div id="element4">
+                <img id="live1" src="pacman-live.jpg">
+            </div>
+            <div id="element4">
+                <img id="live2" src="pacman-live.jpg">
+            </div>
+            <div id="element4">
+                <img id="live3" src="pacman-live.jpg">
+            </div>
+            <!--<div id="element4">
+                <div class="row">
+                    <div class="column">
+                        <img id="live1" src="pacman-live.jpg">
+                    </div>
+                    <div class="column">
+                        <img id="live2" src="pacman-live.jpg">
+                    </div>
+                    <div class="column">
+                        <img id="live3" src="pacman-live.jpg">
+                    </div>
+                </div>
+                <br />
+            </div>-->
+
+            <canvas style="border: 10px solid blue" id="canvas" height="420" width="900"></canvas>
+
+            <script type="text/javascript">
+            var context = canvas.getContext("2d");
+            </script>
+
+        </div>
+
+        <div align="center" id="gameFinishedDiv" hidden>
+            <h1 class="glow" id="finish_title"></h1>
+            <h2 id="finish_text"> <font size="10"> </font></h2>
+            <button onclick="startGame()" class="btn">Play Again</button>
+        </div>
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span onclick="closeModal()" class="close">&times;</span>
+                <p>
+                    <font color="black">
+                        Welcome to our about page! <br /><br />
+                        In case you haven't noticed yet, for the third time, the website
+                        is developed by Ido Marko(209510890) & Itay Merhav(205503352). <br />
+                        <br />
+
+                        The JQuery we used was from a Google API.<br />
+                        The link we used was the following: https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js       <br />
+                        We used jQuery in our websites to make selection of diffrent objects,
+                        trigger events and valdidate the different form.<br />
+
+                        <br />
+                        There were a few difficulties while programming the website, But the one that felt
+                        the most was making the ghosts appear on the canvas and programming them in a way
+                        that they won't eat the food.<br />
+                        We had a few ideas on solving this issue but we had 2 main one. The first was to
+                        put a canvas on a canvas, seprating the ghosts from the food but that made a real
+                        mess with the footer for some reason. The second idea was to give different code
+                        names to places where ghosts were on food. So for example if ghost 1 was on food 2,
+                        The code of this square would be "12".
+
+                    </font>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <p>Pacman website - By Ido Marko and Itay Merhav. 2019. Contact: pacman@bestwebsites.com</p>
+    </div>
+</body>
+
+</html>
